@@ -2,18 +2,12 @@ import requests
 from ics import Calendar
 import discord
 from datetime import datetime, timedelta
-from distutils.sysconfig import PREFIX
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-EPL_PREFIX = '/EPL'
-CALL_PREFIX = os.environ['PREFIX']
-TOKEN = os.environ['TOKEN']
 
 # Discord 봇 구현
 client = discord.Client(intents=discord.Intents.all())
+
+PREFIX = os.environ['PREFIX']
+TOKEN = os.environ['TOKEN']
 
 @client.event
 async def on_ready():
@@ -24,7 +18,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith(EPL_PREFIX):
+    if message.content.startswith('/EPL'):
         try:
             # ICS 파일 다운로드 및 파싱하여 이벤트 정보 추출
             url = 'https://calendar.google.com/calendar/ical/98vpe1b8ud40q2jdmacdmdbii0%40group.calendar.google.com/private-ed79b1214ec06437baa09d3889d48181/basic.ics'
@@ -75,4 +69,8 @@ async def on_message(message):
                     await message.channel.send(remaining_message)
 
         except Exception as e:
-            await message.channel.send(f'
+            await message.channel.send(f'Error occurred: {e}')
+
+
+# Discord 봇 실행
+client.run('TOKEN')
