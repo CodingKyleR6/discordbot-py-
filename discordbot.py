@@ -1,3 +1,4 @@
+import os
 import requests
 from ics import Calendar
 import discord
@@ -66,11 +67,4 @@ async def on_message(message):
                     await message.channel.send(remaining_message[:1999])
                     remaining_message = remaining_message[1999:]
                 if len(remaining_message) > 0:
-                    await message.channel.send(remaining_message)
-
-        except Exception as e:
-            await message.channel.send(f'Error occurred: {e}')
-
-
-# Discord 봇 실행
-client.run('TOKEN')
+                    await message.channel
