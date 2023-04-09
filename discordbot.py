@@ -67,4 +67,10 @@ async def on_message(message):
                     await message.channel.send(remaining_message[:1999])
                     remaining_message = remaining_message[1999:]
                 if len(remaining_message) > 0:
-                    await message.channel
+                    await message.channel.send(remaining_message)
+
+        except Exception as e:
+            print(e)
+            await message.channel.send('Error: Failed to get EPL schedule')
+            
+client.run(TOKEN)
